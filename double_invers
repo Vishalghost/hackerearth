@@ -1,0 +1,47 @@
+import sys
+
+MAX_N = 100000
+
+def exec_testcase(n, arr, iA, occupations):
+    for i in range(n):
+        v = int(sys.stdin.readline().strip())
+        iA[i] = v
+        occupations[i] = False
+
+    is_solution = True
+    for i in range(n - 1, -1, -1):
+        iR = int(sys.stdin.readline().strip())
+        arr[i] = n - iA[i] - iR
+        is_solution = is_solution and (arr[i] > 0) and not occupations[(arr[i] + n) % n]
+        occupations[(arr[i] + n) % n] = True
+        if not is_solution:
+            break
+
+    # Clear the input buffer
+    sys.stdin.readline()
+
+    if is_solution:
+        print(" ".join(map(str, arr)))
+    else:
+        print("-1")
+
+def main():
+    t = int(sys.stdin.readline().strip())
+    arr = [0] * MAX_N
+    iA = [0] * MAX_N
+    occupations = [False] * MAX_N
+
+    for _ in range(t):
+        n = int(sys.stdin.readline().strip())
+        if n > MAX_N:
+            print("Error")
+            return
+
+        for j in range(n):
+            occupations[j] = False
+
+        exec_testcase(n, arr, iA, occupations)
+
+if __name__ == "__main__":
+    main()
+
