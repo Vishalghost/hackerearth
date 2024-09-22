@@ -1,0 +1,27 @@
+import sys
+
+def main():
+    m = int(input())
+    for j in range(m):
+        n = int(input())
+        l = list(map(int, input().split()))
+        count = 0
+        
+        for i in range(25):
+            t = 0
+            while t < n and (l[t] & (1 << i)) != 0:
+                t += 1
+            
+            if t == n:
+                count += (n * (1 << i)) + ((((n * (n - 1)) // 2) * (1 << i)) - (1 << i))
+            else:
+                k = n - 1
+                while k >= 0 and (l[k] & (1 << i)) != 0:
+                    k -= 1
+                count += (t * (1 << i)) + ((n - 1 - k) * (1 << i)) + (t * (n - 1 - k)) * (1 << i)
+        
+        print(count)
+
+if __name__ == "__main__":
+    main()
+
