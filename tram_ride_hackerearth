@@ -1,0 +1,29 @@
+def solve (N, start, finish, Ticket_cost):
+    
+    v = 0
+    jk = 0
+    
+    if start > finish:
+        start, finish = finish, start
+    
+    for i in range(start - 1, finish - 1):
+        v += Ticket_cost[i]
+    
+    for i in range(start - 2, -1, -1):
+        jk += Ticket_cost[i]
+    
+    for i in range(N - 1, finish - 2, -1):
+        jk += Ticket_cost[i]
+    
+    if v < jk:
+        return v
+    else:
+        return jk
+
+N = int(input())
+start = int(input())
+finish = int(input())
+Ticket_cost = list(map(int, input().split()))
+
+out_ = solve(N, start, finish, Ticket_cost)
+print (out_)
